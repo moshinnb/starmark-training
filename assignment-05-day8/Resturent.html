@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resturent</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="./ResturentRepo.js"></script>
+    <script>
+        const obj=new food();
+     
+        function addfunction(i,o,id,btn){
+            
+            console.log("called")
+            let inp=parseInt($(i).val());
+            if(inp==0){
+                $(i).hide();
+                $(o).hide();
+                $(btn).show(1);
+            }    
+           $(o).val(obj.addFood(id,inp));
+            
+        }
+        function billGeneration(){
+            if (!obj.getTotalPrice()){
+                alert("No item Added to cart")
+            }
+            else{$('.tbl>div').show(2);
+                $('table').find("tr:gt(0)").remove();
+                obj.items.filter(e=>e.count>0).map(e=>{
+                    
+                   let row= `<tr>
+                        <td>${e.name}</td>
+                        <td>${e.count}</td>
+                        <td>${obj.priceList.get(e.name)*e.count}</td>
+                    </tr>`
+                    $('table').append(row);
+                });
+                $('table').append(`<tr>
+                    <td colspan=2>Total Amount</td>
+                    
+                    <td>${obj.getTotalPrice()}</td>
+                </tr>`)
+                
+
+            }
+        }
+    function onPlaceOrder(){
+        $(".page").hide(2);
+        $('.tbl>div').hide(2)
+        $(".login").hide();
+        $(".result").append("<h1 >Order Place Succefully</h1>");
+        
+        setTimeout(()=>{  $(".result").remove();$(".page").show(2); init();},2000);
+        
+        <!-- alert("Order Place Succefully"); -->
+        
+
+    }
+        function onRegister(){          
+            a={}
+            a.name=$(".register").find("input:first").val();
+            a.email=$(".register").find("input:eq(1)").val();
+            a.pass=$(".register").find("input:eq(2)").val();
+            a.location=$(".register").find("input:eq(3)").val();
+            localStorage.setItem("user",JSON.stringify(a));
+            init();
+            
+
+        }
+        function onLogin(){
+            udata=JSON.parse(localStorage.getItem("user"));
+           if ($(".login").find("input:first").val() == udata.email && $(".login").find("input:last").val() == udata.pass) {
+                
+                $(".login").hide();
+                $(".page").show();
+            }
+            else {
+                alert("User Name or Password is wrong");
+            }
+
+        }
+        
+        function init(){
+            $(".register").hide();
+            $(".login").hide();
+            if(!localStorage.getItem("user"))
+            {   $(".page").hide(2);
+                $(".register").show();
+                
+
+                
+            }
+            else {             
+           $("#1mAdd").show(10);
+            $("#2mAdd").show(10);
+            $("#3mAdd").show(10);
+            $("#4mAdd").show(10);
+            $("#1moutput").hide();
+            $("#1minput").hide();
+            $("#2moutput").hide();
+            $("#2minput").hide();
+            $("#3minput").hide();
+            $("#3moutput").hide();
+            $("#4moutput").hide();
+            $("#4minput").hide();
+            $('.tbl>div').hide();
+            
+            $("#1mAdd").click(function () {$("#1mAdd").hide(10);$('.tbl>div').hide();$("#1minput").show(1);$("#1minput").val(1);$("#1moutput").show(5).val(obj.addFood(1,1));});
+            $("#2mAdd").click(function () {$("#2mAdd").hide(10);$('.tbl>div').hide();$("#2minput").show(1);$("#2minput").val(1);$("#2moutput").show(5).val(obj.addFood(2,1));});
+            $("#3mAdd").click(function () {$("#3mAdd").hide(10);$('.tbl>div').hide();$("#3minput").show(1);$("#3minput").val(1);$("#3moutput").show(5).val(obj.addFood(3,1));});
+            $("#4mAdd").click(function () {$("#4mAdd").hide(10);$('.tbl>div').hide();$("#4minput").show(1);$("#4minput").val(1);$("#4moutput").show(5).val(obj.addFood(4,1));});
+
+            $("#cart").click(billGeneration);
+            $("#placeOrder").click(onPlaceOrder)
+            $(".register").find("button").click(onRegister);
+            $(".login").find("button").click(onLogin);
+           
+        }}
+        $(document).ready(init)
+    </script>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>
+                <a href="">sign in</a>
+            </li>
+        </ul>
+    </nav>
+    <div class="register">
+        <h4>New Registation</h4>
+        <p><input type="text" placeholder="Name"></p>
+        <p><input type="text" placeholder="email"></p>
+        <p><input type="text" placeholder="password"></p>
+        <p><input type="text" placeholder="Location"></p>
+        <p><button>Register</button></p>
+    </div>
+    <div class="login">
+        <h4>Login</h4>
+        <p><input type="text" placeholder="email"></p>
+        <p><input type="text" placeholder="password"></p>
+        
+        <p><button>Login</button></p>
+    </div>
+    <div class="result"></div>
+<div class="page">
+    <div>
+    <h1>Hotel Al Taj</h1>
+    </div>
+   <div class="tbl" style="float:right"><button id="cart" >ViewCart</button>
+    <div>
+    <table border="1">
+        <tr>
+            <td>Item</td>
+            <td>Qantity</td>
+            <td>Amount</td>
+        </tr>
+
+    </table> 
+    <div><button id="placeOrder">Place Order</button></div>
+    </div>   
+
+</div>
+    
+    <hr>
+
+    <div class="seeItems">
+        <div class="mMain">
+            <div class="mImg">
+                <img src="./images/biriyani.jfif" />
+            </div>
+            <div class="mcontent">
+                    <div><p>Name:Biryani</p>
+                        <p>Price:450</p>
+                    </div>
+                        <input type="number" min="0"  style="width:30px;" id="1minput" oninput="addfunction('#1minput','#1moutput',1,'#1mAdd')" /> 
+                        <!-- <input type="button" value="+"> -->
+                        <button id="1mAdd">Add</button>
+                        <input type=text" min="0" dispabled style="width:30px;" id="1moutput" />  
+            </div>
+        </div>
+    
+    <div id="1seeItems">
+        <div class="mMain">
+            <div class="mImg">
+                <img src="./images/burger.jfif" />
+            </div>
+            <div class="mcontent">
+                    <div><p>Name:Burger</p>
+                        <p>Price:150</p>
+                    </div>
+                        <input type="number" min="0" style="width:30px;" id="2minput" oninput="addfunction('#2minput','#2moutput',2,'#2mAdd')"/> 
+                        <!-- <input type="button" value="+"> -->
+                        <button id="2mAdd">Add</button> 
+                        <input type=text" min="0" dispabled style="width:30px;" id="2moutput" /> 
+            </div>
+        </div>
+    </div>
+    <div id="1seeItems">
+        <div class="mMain">
+            <div class="mImg">
+                <img src="./images/gobi.jfif" />
+            </div>
+            <div class="mcontent">
+                    <div><p>Name:Gobi Manchuri</p>
+                        <p>Price:100</p>
+                    </div>
+                        <input type="number" min="0" style="width:30px;" id="3minput" oninput="addfunction('#3minput','#3moutput',3,'#3mAdd')"/> 
+                        <!-- <input type="button" value="+"> -->
+                        <button id="3mAdd">Add</button>
+                        <input type=text" min="0" dispabled style="width:30px;" id="3moutput" />  
+            </div>
+        </div>
+    </div>
+    <div id="1seeItems">
+        <div class="mMain">
+            <div class="mImg">
+                <img src="./images/parota.jfif" />
+            </div>
+            <div class="mcontent">
+                    <div><p>Name:Parota</p>
+                        <p>Price:80</p>
+                    </div>
+                        <input type="number" min="0" style="width:30px;" id="4minput" oninput="addfunction('#4minput','#4moutput',4,'#4mAdd')"/> 
+                        <!-- <input type="button" value="+"> -->
+                        <button id="4mAdd">Add</button>  
+                        <input type=text" min="0" dispabled style="width:30px;" id="4moutput" />
+            </div>
+        </div>
+    </div>
+    
+</div>
+</div>
+</body>
+</html>
+
+ <!-- $("#1mAdd").click(function(){.val());funAdd(1,parseInt($("#1minput").val()));});
+            $("#2mAdd").click(function(){funAdd(2,parseInt($("#2minput").val()));});
+            $("#3mAdd").click(function(){funAdd(3,parseInt($("#3minput").val()));});
+            $("#4mAdd").click(function(){funAdd(4,parseInt($("#4minput").val()));});
+             -->
+              <!-- $(".page").hide();
+        
+        setTimeout(()=>{ $(document).append("<h1>Order Place Succefully</h1>");},1000);
+        $(".page").show(); -->
+
+
+
+        <!-- $(".page").hide();
+        console.log("------")
+        $(".login").show();
+        
+        console.log("****") -->
