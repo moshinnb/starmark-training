@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool Plaza</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="./assignmentRepo.js"></script>
+    <style>
+        .repo{
+            border: 1px solid lightslategray;
+            border-radius: 2px;
+        }
+        h1,p {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+        }
+
+        body {
+            background: rgb(214, 210, 210);
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 20px;
+            padding: 5px;
+            background: black;
+        }
+
+        nav ul li {
+            display: inline-block;
+            padding: 5px;
+            margin: 10px;
+        }
+
+        nav ul li a {
+            padding: 15px;
+            margin: 10px;
+            text-decoration: none;
+            color: aliceblue;
+            background: goldenrod;
+        }
+
+        nav ul li a:hover {
+            color: white;
+            background: gold;
+        }
+    </style>
+    <script>
+        const obj = new ToolManager()
+        function clearInput() {
+            $("#txtvNo").val(""); 
+            $('#txtVal').val("Select Vehicle");
+        }
+        function submit() {
+            $('div>div:eq(1)').hide();
+            let vNo = $("#txtvNo").val();
+            let vName = $('#txtVal').val();
+            if (vNo == "" || vName == "Select Vehicle") { alert("Inputs Required!!!") }
+            else {
+                switch (vName) {
+                    case "CAR":
+                        obj.addCar(vNo);
+                        break;
+                    case "BUS":
+                        obj.addBus(vNo);
+                        break;
+                    case "TRUCK":
+                        obj.addTruck(vNo);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            console.log($('#txtVal').val());
+            clearInput()
+        }
+        function populate() {
+            // $('table').children("tr:eq(1)").remove();
+            $("#stat").find('tr:gt(0)').remove();
+            let row = `<tr>
+                    <td>Car</td>
+                    <td>${obj.totalCar()}</td>
+                    <td>${obj.totalCarC()}</td>
+                    </tr>`
+            $("#stat").append(row);
+            row = `<tr>
+                    <td>Bus</td>
+                    <td>${obj.totalBus()}</td>
+                    <td>${obj.totalBusC()}</td>
+                    </tr>`
+            $("#stat").append(row);
+            row = `<tr>
+                    <td>Truck</td>
+                    <td>${obj.totalTruck()}</td>
+                    <td>${obj.totalTruckC()}</td>
+                    </tr>`
+            $("#stat").append(row);
+            row = `<tr style= "background: rgb(216, 205, 207);">
+                    <td>Total</td>
+                    <td>${obj.getVehicle().length}</td>
+                    <td>${obj.totalCarC() + obj.totalBusC() + obj.totalTruckC()}</td>
+                    </tr>`
+            // <!-- <td>${obj.totalCar()+obj.totalBus()+obj.totalTruck()}</td> -->
+            $("#stat").append(row);
+        }
+        function viewReport() {
+            console.log($('#stime').val());
+            console.log($('#etime').val());
+        }
+
+        function onViewReport() {
+            debugger;
+            $('div>div').hide();
+            // $('div>div:eq(2)').show(1000);
+            $('div>div:last').show(1);
+
+        }
+
+        function diplayStatistics() {
+            $('div>div:eq(1)').show(1000);
+            populate();
+        }
+
+        function Home() {
+            $('div>div').hide(1);
+            $("div>div:eq(0)").show(100);
+        }
+
+        function init() {
+            $('div').find("div:gt(0)").hide(1);
+            $("#home").click(Home)
+            $("#sub").click(submit);
+            $("#clickStat").click(diplayStatistics);
+            $("#report").click(onViewReport);
+            $("#tsubmit").click(viewReport)
+        }
+        $(document).ready(init);
+    </script>
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" id="home">Home</a></li>
+            <li><a href="#" id="clickStat">Statstics</a></li>
+            <li><a href="#" id="report">View Report</a></li>
+        </ul>
+    </nav>
+    <div>
+        <div style="border:2px solid black">
+            <h1>Toll Plaza System</h1>
+            <p>Enter vehicle No<input id="txtvNo"></p>
+            <p>vehicle Type <select id="txtVal">
+                    <option>Select Vehicle</option>
+                    <option>CAR</option>
+                    <option>BUS</option>
+                    <option>TRUCK</option>
+                </select></p>
+            <p><button id="sub"> submit</button></p>
+
+        </div>
+        <div>
+            <table id="stat" border="1">
+                <tr>
+
+                    <th>vehicle</th>
+                    <th>Total No</th>
+                    <th>amount</th>
+                </tr>
+            </table>
+        </div>
+        <div >
+            <h1>Report </h1><hr>
+            <div class="repo">
+            <p> <label>Start Date</label><input type="date" id="sdate"> <label>End Date</label> <input type="date" id="edate"> </p>
+            <p><label>Start Time (HH:MM)</label><input type="time" id="stime">  <label>End Time(HH:MM)</label> <input type="time" id="etime"> </p>
+            <p><button type="submit" id="tsubmit">Search</button></p>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
