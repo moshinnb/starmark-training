@@ -1,0 +1,6 @@
+﻿﻿~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ACCOUNT MANAGER SOFTWARE~~~~~~~~~~~~~~~~~~~
+TO ADD NEW MOVIE-------------->PRESS 1
+TO UPDATE EXISTING MOVIE------>PRESS 2
+TO FIND MOVIE----------------->PRESS 3
+TO DELETE MOVIE--------------->PRESS 4
+PS: ANY OTHER KEY IS CONSIDERED AS EXIT.....................................
