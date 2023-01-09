@@ -1,0 +1,7 @@
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\obj\Debug\CSharpAssignment01.csprojAssemblyReference.cache
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\obj\Debug\CSharpAssignment01.csproj.CoreCompileInputs.cache
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\bin\Debug\CSharpAssignment01.exe.config
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\bin\Debug\CSharpAssignment01.exe
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\bin\Debug\CSharpAssignment01.pdb
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\obj\Debug\CSharpAssignment01.exe
+D:\moushin\dotNetProgrmming\CSharpAssignment01\CSharpAssignment01\obj\Debug\CSharpAssignment01.pdb
